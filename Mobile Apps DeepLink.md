@@ -2,6 +2,9 @@
 
 Use HalalaH's DeepLink to call HalalaH App with a bill with the amount that is not editable by the payee, once the order is paid the app will recall your app  based on the Callback URL you provide along with the other parameters.
 
+In this section, you will need the following credentials provided by HalalaH: 
+- Terminmal Label 
+
 To check your bill payment status, use the web service [HalalaH EMV Code Bill Status V2](HalalaH%20EMV%20Code%20Bill%20Status%20V2.md) 
 
 
@@ -9,7 +12,7 @@ To check your bill payment status, use the web service [HalalaH EMV Code Bill St
 
 #### Parameters
 #### EMV Code Parameters 
-- ###### Terminal Unique ID
+- ###### Terminal Unique Label
 > terminal=HG00001 `Terminal Label provided by HalalaH`
 
 - ###### Amount
