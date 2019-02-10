@@ -1,6 +1,10 @@
 #  HalalaH EMV Code Bill Status Version 2
 
-Use this web service to check your EMV Code Bill payment status.
+Use this web service to check your EMV Code Bill payment status. You will need the following credentials specific to your account and provided by HalalaH: 
+- ###### Terminal ID
+- ###### Client ID
+- ###### Client Secret
+
 
 
 ## Access Token Web Service
@@ -46,7 +50,7 @@ Use this web service to check the bill payment status
 
 ###### URL
 > Url Parameters 
-> - `Terminal_ID` Which the EMV Code was generated from
+> - `Terminal_ID` Provided by HalalaH 
 > - `Reference Number` Contained in the EMV Code 
 ```
 https://apigw.halalah.sa/Orders/v2/Order/{Terminal_ID}/{Reference_Number}
