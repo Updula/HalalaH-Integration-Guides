@@ -6,28 +6,10 @@ class Qrcode {
     generate(){
 
         let inputs = this.inputs_obj;
+        let error = '';
 
         const utf8 = require('utf8');
         const fs = require('fs');
-
-        let error = '';
-
-        // if (!String.prototype.contains) {
-        //         //     String.prototype.contains= function() {
-        //         //         return String.prototype.indexOf.apply(this, arguments) !== -1;
-        //         //     };
-        //         // }
-
-        // cmd_args = process.argv;
-        // cmd_i = 0;
-        // cmd_args.forEach(function(ky,vl){
-        //     cmd_i++;
-        //     if(ky.contains('=')){
-        //         field_arr = ky.split("=");
-        //         inputs[field_arr[0]] = field_arr[1];
-        //     }
-        // });
-
         const VERSION = '000201';
         const POI = '010212';
         const HALALAH_ID = '33';
@@ -35,7 +17,6 @@ class Qrcode {
         const COUNTRY = 'SA';
         const LANG = 'AR';
         const CURRENCY = '682';
-
 
         function crc16(str)
         {
@@ -79,23 +60,16 @@ class Qrcode {
             str = str.toString();
             str = utf8.encode(str);
             let len = str.length;
-
             for (let i = 0; i < len; i++ ) {
                 let index = (crc_16 >> 8) ^ decodeURIComponent(escape(str.charAt(i).charCodeAt(0)));
                 crc_16 = ((crc_16 << 8) & 0xFFFF) ^ table[index];
             }
-
             crc_16 = crc_16.toString(16);
-
             return crc_16.toString();
         }
 
-        /*
-         * AUTOMATIC FUNCTIONS
-         */
         function add_error(err) {
-            error += ', ERROR: ' + err + '.';
-            return true;
+            throw new Error(err);
         }
 
         function get_length(str){
@@ -106,7 +80,7 @@ class Qrcode {
             }else{
                 return ''+len;
             }
-        } // end: get_length(str)
+        }
 
         function empty(str){
             switch (str) {
@@ -123,112 +97,99 @@ class Qrcode {
                 default:
                     return false;
             }
-        } // end: empty(str)
+        }
 
         function id_len_val(id, val){
             return id + get_length(val) + val;
-        } // end: id_len_val(id, val)
+        }
 
         function merchant_account_info(){
             let gui_line = '00'+get_length(HALALAH_GUI)+HALALAH_GUI;
-
             let merchant_line = '';
             if(!empty(inputs.merchant_id)){
                 let merchant_id = inputs.merchant_id;
                 merchant_line = '04'+get_length(merchant_id)+merchant_id;
             }
-
             let branch_line = '';
             if(!empty(inputs.branch_id)){
                 let branch_id = inputs.branch_id;
                 branch_line = '05'+get_length(branch_id)+branch_id;
             }
-
             let terminal_line = '';
             if(!empty(inputs.terminal_id)){
                 let terminal_id = inputs.terminal_id;
                 terminal_line = '06'+get_length(terminal_id)+terminal_id;
             }
-
             let  z_line = gui_line+merchant_line+branch_line+terminal_line;
             let  mai_len = get_length(z_line);
             let  mai_o = HALALAH_ID+mai_len+z_line;
 
             return mai_o;
-        } // end: merchant_account_info()
+        }
 
         function mmc(){
             if(empty(inputs.merchant_category_code)){
                 add_error('MUST ADD MERCHANT CATEGORY CODE');
-                return '';
-            }else{
-                return id_len_val('52', inputs.merchant_category_code);
             }
-        } // end: function mmc()
+            return id_len_val('52', inputs.merchant_category_code);
+        }
 
         function country(){
             return id_len_val('58', COUNTRY);
-        } // end: function country()
+        }
 
         function merchant_name(){
             if(empty(inputs.merchant_name)){
                 add_error('MUST ADD MERCHANT NAME');
-                return '';
-            }else{
-                return id_len_val('59', inputs.merchant_name);
             }
-        } // end: function merchant_name()
+            return id_len_val('59', inputs.merchant_name);
+        }
 
         function merchant_city(){
-            if(!empty(inputs.merchant_city)){
-                return id_len_val('60', inputs.merchant_city);
+            if(empty(inputs.merchant_city)){
+                add_error('MUST ADD MERCHANT CITY');
             }
-        } // end: function merchant_city()
+            return id_len_val('60', inputs.merchant_city);
+        }
 
         function postal_code(){
             if(!empty(inputs.postal_code)){
                 return id_len_val('61', inputs.postal_code);
             }
-        } // end: function postal_code()
+        }
 
-        function local_name_city(){
+        function local_lang_city(){
             let local_line = id_len_val('00', LANG);
-
             let name_line = '';
             let city_line = '';
-
             if(!empty(inputs.merchant_name_ar)){
                 name_line = id_len_val('01', inputs.merchant_name_ar);
+            }else{
+                add_error("MUST ADD MERCHANT NAME In Arabic Language");
             }
             if(!empty(inputs.merchant_city_ar)){
                 city_line = id_len_val('02', inputs.merchant_city_ar);
+            }else{
+                add_error("MUST ADD MERCHANT CITY In Arabic Language");
             }
-
             let z_line = local_line+name_line+city_line;
             let al_len = get_length(z_line);
             return '64'+al_len+z_line;
 
-        } // end: function local_name_city()
+        }
 
         function amount(){
             if(empty(amount)){
                 add_error('MUST ADD AMOUNT');
-                return '';
-            }else{
-                return id_len_val('54', inputs.amount);
             }
-        } // end: function amount()
+            return id_len_val('54', inputs.amount);
+        }
 
         function currency(){
             return id_len_val('53', CURRENCY);
-        } // end: function currency()
-
-        function tip(){
-            return '550201';
-        } // end: function tip()
+        }
 
         function additional_data(){
-
             let bill_line = '';
             let mobile_line = '';
             let store_line = '';
@@ -241,31 +202,25 @@ class Qrcode {
 
             if(!empty(inputs.bill)){
                 bill_line = id_len_val('01', inputs.bill);
+            }else{
+                add_error('MUST ADD Bill');
             }
-            if(!empty(inputs.mobile)){
-                mobile_line = id_len_val('02', inputs.mobile);
-            }
-            if(!empty(inputs.store)){
-                store_line = id_len_val('03', inputs.store);
-            }
-            if(!empty(inputs.loyalty)){
-                loyalty_line = id_len_val('04', inputs.loyalty);
-            }
+            if(!empty(inputs.mobile)){ mobile_line = id_len_val('02', inputs.mobile); }
+            if(!empty(inputs.store)){ store_line = id_len_val('03', inputs.store); }
+            if(!empty(inputs.loyalty)){ loyalty_line = id_len_val('04', inputs.loyalty); }
             if(!empty(inputs.reference)){
                 reference_line = id_len_val('05', inputs.reference);
+            }else{
+                add_error('MUST ADD Reference');
             }
-            if(!empty(inputs.consumer)){
-                consumer_line = id_len_val('06', inputs.consumer);
-            }
+            if(!empty(inputs.consumer)){ consumer_line = id_len_val('06', inputs.consumer);  }
             if(!empty(inputs.terminal)){
                 terminal_line = id_len_val('07', inputs.terminal);
+            }else{
+                add_error('MUST ADD Terminal');
             }
-            if(!empty(inputs.purpose)){
-                purpose_line = id_len_val('08', inputs.purpose);
-            }
-            if(!empty(inputs.request)){
-                request = id_len_val('09', inputs.request);
-            }
+            if(!empty(inputs.purpose)){ purpose_line = id_len_val('08', inputs.purpose); }
+            if(!empty(inputs.request)){ request = id_len_val('09', inputs.request); }
 
             let z_line = bill_line+mobile_line+store_line+loyalty_line+reference_line+consumer_line+terminal_line+purpose_line+request;
 
@@ -274,7 +229,8 @@ class Qrcode {
             if(!empty(al_len) && !empty(z_line)){
                 return '62'+al_len+z_line;
             }
-        } // end: function additional_data(val)
+            return '';
+        }
 
         function crc(o){
             let crc_id_len = '6304';
@@ -283,9 +239,7 @@ class Qrcode {
         }
 
         function output(){
-
             let o = '';
-
             o += VERSION;
             o += POI;
             o += merchant_account_info();
@@ -294,25 +248,24 @@ class Qrcode {
             o += merchant_name();
             o += merchant_city();
             o += postal_code();
-            o += local_name_city();
+            o += local_lang_city();
             o += amount();
             o += currency();
-
             o += additional_data();
             o += crc(o);
-
             return o;
+        }
 
-        } // end:public function output()
+        console.log(output());
+        console.log('_________________________________________');
 
         fs.writeFile("./output.txt", output(), function(err) {
             if(err) {
                 return console.log(err);
             }
-
             console.log("data saved to output.txt file");
         });
     }
-};
+}
 
 module.exports = Qrcode;
