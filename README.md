@@ -3,6 +3,13 @@ Hello Developer,<br />
 
 HalalaH Platform is now open for some serious Business! Find your way within our technical documentation and start enabling your business with HalalaH payments methods. <br />For Mobile apps and Portals, enrich your client’s experience by simple Payment methods based on HalalaH standard QR code and Deep Links.
 
+For the intgration process, you will need the following credintials specific to your account and provided by HalalaH: 
+> - Terminal Label 
+> - Terminal ID 
+> - Merchant Category Code 
+> - Client ID 
+> - Client Secret 
+
 
 ### 1. Generating QR Code:
 #### EMV Code Standards [Document](HalalaH%20QR%20Code%20Standard%20-%20Merchant-Presented%20Mode%20v1.2.pdf)
