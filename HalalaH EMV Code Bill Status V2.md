@@ -1,10 +1,9 @@
 #  HalalaH EMV Code Bill Status Version 2
 
 Use this web service to check your EMV Code Bill payment status. You will need the following credentials specific to your account and provided by HalalaH: 
-- ###### Terminal ID
-- ###### Client ID
-- ###### Client Secret
-
+ - Terminal ID
+ - Client ID
+ - Client Secret
 
 
 ## Access Token Web Service
