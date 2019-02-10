@@ -4,9 +4,12 @@ Hello Developer,<br />
 HalalaH Platform is now open for some serious Business! Find your way within our technical documentation and start enabling your business with HalalaH payments methods. <br />For Mobile apps and Portals, enrich your client’s experience by simple Payment methods based on HalalaH standard QR code and Deep Links.
 
 For the intgration process, you will need the following credentials specific to your account and provided by HalalaH: 
+ - Merchant Category Code 
+ - Merchant name (EN and AR)
+ - Merchat City (EN and AR)  
+ - Postal Code
  - Terminal Label 
  - Terminal ID 
- - Merchant Category Code 
  - Client ID 
  - Client Secret
  ---
