@@ -9,7 +9,7 @@ For the intgration process, you will need the following credintials specific to 
  - Merchant Category Code 
  - Client ID 
  - Client Secret
- --
+ ---
 ### 1. Generating QR Code:
 #### EMV Code Standards [Document](HalalaH%20QR%20Code%20Standard%20-%20Merchant-Presented%20Mode%20v1.2.pdf)
 
