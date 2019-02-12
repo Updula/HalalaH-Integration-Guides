@@ -16,11 +16,7 @@ For the intgration process, you will need the following credentials specific to 
 ### 1. Generating QR Code:
 #### EMV Code Standards [Document](HalalaH%20QR%20Code%20Standard%20-%20Merchant-Presented%20Mode%20v1.2.pdf)
 
-<<<<<<< HEAD
-
-=======
 ### 2. Access Token and Bill Status 
->>>>>>> d59066a171f37afbbe55c56aab90be9b0c7cbeee
 #### HalalaH EMV Code Bill Status V2 [Guide](HalalaH%20EMV%20Code%20Bill%20Status%20V2.md)
 ---
 ### For Mobile Apps: 
