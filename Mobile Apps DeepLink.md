@@ -32,5 +32,5 @@ To check your bill payment status, use the web service [HalalaH EMV Code Bill St
 #### Example
 #### Slack calling HalalaH
 ```
-HalalaHeWallet://Transaction?terminal=HG00001&amount=0.02&referenceNo=london50&bil lNo=london123&memo=memo&callback=slack://open
+HalalaHeWallet://Transaction?terminal=HG00001&amount=0.02&referenceNo=refNumber&billNo=billNumber&memo=memo&callback=slack://open
 ```

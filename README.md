@@ -5,7 +5,6 @@ HalalaH Platform is now open for some serious Business! Find your way within our
 
 #### EMV Code Standards [Document](HalalaH%20QR%20Code%20Standard%20-%20Merchant-Presented%20Mode%20v1.2.pdf)
 
-#### Merchants Categories Code List [List](Merchants%20Categories%20Codes%20List.md)
 
 #### HalalaH EMV Code Bill Status V2 [Guide](HalalaH%20EMV%20Code%20Bill%20Status%20V2.md)
 
