@@ -6,8 +6,7 @@ HalalaH Platform is now open for some serious Business! Find your way within our
 For the intgration process, you will need the following credentials specific to your account and provided by HalalaH: 
  - Merchant Category Code 
  - Terminal Label 
- - Terminal ID 
- - Client ID 
+ - Client ID
  - Client Secret
  ---
 ### 1. Generating QR Code:
